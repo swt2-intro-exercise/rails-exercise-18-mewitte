@@ -5,7 +5,7 @@ class AuthorsController < ApplicationController
   end
 
   def index
-    @author = Author.all
+    @authors = Author.all
   end
 
   def create
