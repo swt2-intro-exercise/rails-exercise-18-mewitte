@@ -20,4 +20,12 @@ describe "New author page", type: :feature do
     page.fill_in 'author[homepage]', with: 'https://wikipedia.org/wiki/Alan_Turing'
     find('input[type=submit]').click
   end
+
+  it "should display an author's details on his page" do
+    @alan = FactoryBot.create :author
+    visit author_path(@alan)
+    expect(page).to have_text('Alan')
+    expect(page).to have_text('Turing')
+    expect(page).to have_text('https://wikipedia.org/wiki/Alan_Turing')
+  end
 end
