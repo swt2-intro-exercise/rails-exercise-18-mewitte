@@ -4,11 +4,15 @@ class AuthorsController < ApplicationController
 
   end
 
+  def index
+    @author = Author.all
+  end
+
   def create
     @author = Author.new(article_params)
 
     @author.save
-    # redirect_to @author
+    redirect_to @author
   end
 
   def show
