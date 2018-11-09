@@ -13,7 +13,7 @@ describe "New author page", type: :feature do
     expect(page).to have_field('author[homepage]')
   end
 
-  it "should find Alan Turing in the databse if entered with correct data" do
+  it "should save Alan Turing in the databse if form is submitted" do
     visit new_author_path
     page.fill_in 'author[first_name]', with: 'Alan'
     page.fill_in 'author[last_name]', with: 'Turing'
