@@ -27,8 +27,9 @@
   </div>
 
   <div class="authors">
+    <%= form.label :author_ids %>
     <%= form.select 'author_ids',
-      options_from_collection_for_select(Author.all, :id, :name, paper.author_ids),
+      options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
       {},
       multiple: true, size: 10 %>
   </div>
