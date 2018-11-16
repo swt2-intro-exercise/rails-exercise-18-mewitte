@@ -1,19 +1,16 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @paper.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @paper.title %>
-</p>
-
-<p>
-  <strong>Venue:</strong>
-  <%= @paper.venue %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @paper.year %>
-</p>
+<h2>Venue: <%= @paper.venue %></h2>
+<h2>Year: <%= @paper.year %></h2>
+<h2>Authors:
+  <% i = 1 %>
+  <% @paper.authors.each do |author| %>
+    <%= author.name %>
+    <% if i < @paper.authors.length %>
+      <%= ', ' %>
+    <% end %>
+  <% end %>
+</h2>
 
 <%= link_to 'Edit', edit_paper_path(@paper) %> |
 <%= link_to 'Back', papers_path %>
