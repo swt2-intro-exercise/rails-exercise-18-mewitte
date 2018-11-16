@@ -18,6 +18,8 @@ describe "Paper details page", type: :feature do
   end
 
   it "should list the papers' authors" do
+    visit(paper_path(@paper))
+    
     expect(page).to(have_text('Alan Turing'))
   end
 end
