@@ -4,6 +4,10 @@ class AuthorsController < ApplicationController
     @author = Author.new
   end
 
+  def edit
+
+  end
+
   def index
     @authors = Author.all
   end
