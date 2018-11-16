@@ -12,4 +12,9 @@ describe Author, type: :model do
     author = Author.new(first_name: 'Alan', last_name: 'Turing', homepage: 'https://wikipedia.org/wiki/Alan_Turing')
     expect(author.name).to(eq('Alan Turing'))
   end
+
+  it "should have a  list of papers" do
+    @author = FactoryBot.create(:author)
+    expect(@author.papers.exists?)
+  end
 end
