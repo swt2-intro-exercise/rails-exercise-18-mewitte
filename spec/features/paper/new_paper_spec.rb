@@ -35,4 +35,9 @@ describe "New Paper page", type: :feature do
     @paper = Paper.new(title: 'COMPUTING MACHINERY AND INTELLIGENCE', venue: 'Mind 49: 433-460', year: '')
     expect(@paper).to_not(be_valid)
   end
+
+  it "should not create a paper with a year that's not an integer" do
+    @paper = Paper.new(title: 'COMPUTING MACHINERY AND INTELLIGENCE', venue: 'Mind 49: 433-460', year: 'kappa')
+    expect(@paper).to_not(be_valid)
+  end
 end
