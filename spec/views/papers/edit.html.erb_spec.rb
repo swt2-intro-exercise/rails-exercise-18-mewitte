@@ -27,4 +27,19 @@ RSpec.describe "Paper Edit page", type: :feature do
   it "should have one multiple select box to select paper authors from" do
     expect(page).to(have_css("select[multiple]", count: 1))
   end
+
+  it "should update authors of a paper" do
+    @author = Author.create(first_name: 'Peter', last_name: 'Plagiarist', homepage: 'http://www.peter-plagiarist.com')
+    authors = @paper.authors.count
+
+    visit edit_paper_path(@paper)
+
+    page.select(@author.name, from: "paper[author_ids][]")
+    find('input[type="submit"]').click
+
+    @paper.reload
+
+    expect(@paper.authors.count).to(eq(authors + 1))
+    expect(@paper.authors).to(include(@author))
+  end
 end
