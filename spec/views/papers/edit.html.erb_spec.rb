@@ -1,24 +1,30 @@
 require 'rails_helper'
 
-RSpec.describe "papers/edit", type: :view do
+RSpec.describe "Paper Edit page", type: :feature do
   before(:each) do
-    @paper = assign(:paper, Paper.create!(
-      :title => "MyString",
-      :venue => "MyString",
-      :year => 1
-    ))
+    @paper = FactoryBot.create(:paper)
+    visit(edit_paper_path(@paper))
   end
 
-  it "renders the edit paper form" do
-    render
+  it "should display the paper's details" do
+    expect(page).to(have_field('paper[title]'))
+    expect(page).to(have_field('paper[venue]'))
+    expect(page).to(have_field('paper[year]'))
 
-    assert_select "form[action=?][method=?]", paper_path(@paper), "post" do
+    expect(find_field('paper[title]').value).to(eq(@paper.title))
+    expect(find_field('paper[venue]').value).to(eq(@paper.venue))
+    expect(find_field('paper[year]').value).to(eq(@paper.year.to_s))
+  end
 
-      assert_select "input[name=?]", "paper[title]"
+  it "should save the paper's titleif changed" do
+    fill_in('paper[title]', with: "kappa")
+    find('input[type="submit"]').click
 
-      assert_select "input[name=?]", "paper[venue]"
+    @paper.reload
+    expect(@paper.title).to(eq("kappa"))
+  end
 
-      assert_select "input[name=?]", "paper[year]"
-    end
+  it "should have one multiple select box to select paper authors from" do
+    expect(page).to(have_css("select[multiple]", count: 1))
   end
 end
