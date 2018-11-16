@@ -1,18 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe "papers/show", type: :view do
+describe "Papers index page", type: :feature do
   before(:each) do
-    @paper = assign(:paper, Paper.create!(
-      :title => "Title",
-      :venue => "Venue",
-      :year => 2
-    ))
+    @paper = FactoryBot.create(:paper)
   end
 
-  it "renders attributes in <p>" do
-    render
-    expect(rendered).to match(/Title/)
-    expect(rendered).to match(/Venue/)
-    expect(rendered).to match(/2/)
+  it "should render without an error" do
+    visit(papers_path)
+  end
+
+  it "should list the papers' titles, venues and publication years" do
+    visit(papers_path)
+    expect(page).to(have_text('COMPUTING MACHINERY AND INTELLIGENCE'))
+    expect(page).to(have_text('Mind 49: 433-460'))
+    expect(page).to(have_text(1950))
+  end
+
+  it "should list the papers' authors" do
+    visit(papers_path)
+    expect(page).to(have_text('Alan Turing'))
   end
 end
