@@ -33,4 +33,31 @@ describe "New author page", type: :feature do
     @alan = Author.create(first_name: 'Alan', last_name: "", homepage: 'https://wikipedia.org/wiki/Alan_Turing')
     expect(@alan).to_not(be_valid)
   end
+
+ it "should show errors containing details when filling out the form without a first name" do
+   visit(new_author_path)
+
+   page.fill_in('author[last_name]', with: 'Turing')
+   page.fill_in('author[homepage]', with: 'https://wikipedia.org/wiki/Alan_Turing')
+   find('input[type="submit"]').click
+   expect(page).to(have_text("First name can't be blank"))
+ end
+
+ it "should show errors containing details when filling out the form without a last name" do
+   visit(new_author_path)
+
+   page.fill_in('author[first_name]', with: 'Alan')
+   page.fill_in('author[homepage]', with: 'https://wikipedia.org/wiki/Alan_Turing')
+   find('input[type="submit"]').click
+   expect(page).to(have_text("Last name can't be blank"))
+ end
+
+ it "should show errors containing details when filling out the form without a homepage" do
+   visit(new_author_path)
+
+   page.fill_in('author[first_name]', with: 'Alan')
+   page.fill_in('author[last_name]', with: 'Turing')
+   find('input[type="submit"]').click
+   expect(page).to(have_text("Homepage can't be blank"))
+ end
 end
