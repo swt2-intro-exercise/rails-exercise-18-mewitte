@@ -22,4 +22,10 @@ describe "Show authors page", type: :feature do
     visit authors_path
     expect(page).to have_link 'New', href: new_author_path
   end
+
+  it "should have a link to edit author page" do
+    @author = FactoryBot.create(:author)
+    visit(authors_path)
+    expect(page).to(have_link('Edit', href: edit_author_path(@author)))
+  end
 end
